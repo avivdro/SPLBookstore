@@ -8,3 +8,5 @@ package bgu.spl.mics;
 public interface Broadcast extends Message {
 
 }
+
+//adar 2nd time*********
