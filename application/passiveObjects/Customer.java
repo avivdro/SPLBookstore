@@ -2,6 +2,8 @@ package bgu.spl.mics.application.passiveObjects;
 
 import java.util.List;
 
+import application.messages.OrderReceipt;
+
 /**
  * Passive data-object representing a customer of the store.
  * You must not alter any of the given public methods of this class.
@@ -9,37 +11,49 @@ import java.util.List;
  * You may add fields and methods to this class as you see fit (including public methods).
  */
 public class Customer {
-
+	private String name;
+	private int id;
+	private String address;
+	private int distance;
+	private List<OrderReceipt> customerReceipt;
+	private int availableCreditAmount;
+	private int creditNumber;
+	
+	
+	 public Customer(int id, String name, String address, int distance, int amount, int creditCardNumber) {
+	        this.id = id;
+	        this.name = name;
+	        this.address = address;
+	        this.distance = distance;
+	        this.availableCreditAmount = amount;
+	        this.creditNumber = creditCardNumber;
+	    }
 	/**
      * Retrieves the name of the customer.
      */
 	public String getName() {
-		// TODO Implement this
-		return null;
+		return name;
 	}
 
 	/**
      * Retrieves the ID of the customer  . 
      */
 	public int getId() {
-		// TODO Implement this
-		return 0;
+		return id;
 	}
 	
 	/**
      * Retrieves the address of the customer.  
      */
 	public String getAddress() {
-		// TODO Implement this
-		return null;
+	return address;
 	}
 	
 	/**
      * Retrieves the distance of the customer from the store.  
      */
 	public int getDistance() {
-		// TODO Implement this
-		return 0;
+		return distance;
 	}
 
 	
@@ -49,8 +63,7 @@ public class Customer {
      * @return A list of receipts.
      */
 	public List<OrderReceipt> getCustomerReceiptList() {
-		// TODO Implement this
-		return null;
+	return customerReceipt;
 	}
 	
 	/**
@@ -59,16 +72,14 @@ public class Customer {
      * @return Amount of money left.   
      */
 	public int getAvailableCreditAmount() {
-		// TODO Implement this
-		return 0;
+		return availableCreditAmount;
 	}
 	
 	/**
      * Retrieves this customers credit card serial number.    
      */
 	public int getCreditNumber() {
-		// TODO Implement this
-		return 0;
+		return creditNumber;
 	}
 	
 }

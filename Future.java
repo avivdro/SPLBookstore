@@ -12,10 +12,15 @@ import java.util.concurrent.TimeUnit;
  */
 public class Future<T> {
 	
+	
+	private volatile boolean done;
+	private T value = null;
+	
 	/**
 	 * This should be the the only public constructor in this class.
 	 */
 	public Future() {
+		done = false;
 		//TODO: implement this
 	}
 	
@@ -27,24 +32,51 @@ public class Future<T> {
      * @return return the result of type T if it is available, if not wait until it is available.
      * 	       
      */
-	public T get() {
-		//TODO: implement this.
-		return null;
+	public T get()
+	{
+		synchronized (this)
+		{
+			while(!isDone())
+			{
+				try {
+					wait();
+					} catch(InterruptedException error)
+						{
+							System.out.println("Interrupted");
+						}
+				return value;
+			}
+		}
+		
+		
 	}
 	
 	/**
      * Resolves the result of this Future object.
      */
 	public void resolve (T result) {
-		//TODO: implement this.
+		//check if already done
+		// set new result 
+		//notify all
+		synchronized (this) {
+			if(!isDone()) {
+				value = result;
+				done = true;
+				notifyAll();
+			}
+			else {
+				System.out.println("already resolved");
+			}
+			
+		}
+		
 	}
 	
 	/**
      * @return true if this object has been resolved, false otherwise
      */
 	public boolean isDone() {
-		//TODO: implement this.
-		return false;
+		return done;
 	}
 	
 	/**
@@ -59,7 +91,20 @@ public class Future<T> {
      *         elapsed, return null.
      */
 	public T get(long timeout, TimeUnit unit) {
-		//TODO: implement this.
+		synchronized (this)
+		{
+			while(!isDone())
+			{
+				try {
+					wait(unit.toSeconds(timeout));
+					} catch(InterruptedException error)
+						{
+							System.out.println("Interrupted");
+						}
+				return value;
+			}
+		}
+		
 		return null;
 	}
 
