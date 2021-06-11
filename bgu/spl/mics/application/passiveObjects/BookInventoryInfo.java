@@ -9,9 +9,9 @@ package bgu.spl.mics.application.passiveObjects;
 public class BookInventoryInfo {
 	//fields 
 	
-	String bookTitle;
-	int amountInInventory;
-	int price;
+	private String bookTitle;
+	private int amountInInventory;
+	private int price;
 	
 	//constructor
 	public BookInventoryInfo(String bookTitle,int amountInInventory, int price) {
@@ -38,7 +38,11 @@ public class BookInventoryInfo {
 	public int getAmountInInventory() {      //needs to be synchronised, because the information is from "inventory"
 		return amountInInventory;
 	}
-
+	//sets amount in inventory (used when taking a book from invetory)
+	//this function only allows to take one book at a time
+	public void decreaseAmountInInventory(BookInventoryInfo book) {      //needs to be synchronised, because the information is from "inventory"
+		book.amountInInventory--;
+	}
 	/**
      * Retrieves the price for  book.
      * <p>

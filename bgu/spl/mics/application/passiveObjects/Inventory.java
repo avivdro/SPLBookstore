@@ -1,5 +1,6 @@
 package bgu.spl.mics.application.passiveObjects;
-
+import java.util.HashMap;
+import java.util.Iterator;
 
 
 /**
@@ -14,12 +15,23 @@ package bgu.spl.mics.application.passiveObjects;
  */
 public class Inventory {
 
+	//fields
+	static Inventory Inventory = new Inventory();
+	//widsh collection to choose for bookinfos?
+	private HashMap<String, BookInventoryInfo> inventoryBooks = new HashMap<>();
+	
+	
+	
+	//constructor
+	private Inventory() {
+	}
+	
+	
 	/**
      * Retrieves the single instance of this class.
      */
 	public static Inventory getInstance() {
-		//TODO: Implement this
-		return null;
+		return Inventory;
 	}
 	
 	/**
@@ -30,7 +42,9 @@ public class Inventory {
      * 						of the inventory.
      */
 	public void load (BookInventoryInfo[ ] inventory ) {
-		
+		for (int i = 0; i < inventory.length; i++) {
+			inventoryBooks.put(inventory[i].getBookTitle(), inventory[i])
+		}
 	}
 	
 	/**
@@ -42,8 +56,20 @@ public class Inventory {
      * 			second should reduce by one the number of books of the desired type.
      */
 	public OrderResult take (String book) {
-		
-		return null;
+		//synchronize the search, because if taken i need to update ==>read and write;
+		synchronized (inventoryBooks) { //this happens on inventoryBooks hashmap
+			if (inventoryBooks.containsKey(book)) { //check if contains the book
+				BookInventoryInfo bookObj = inventoryBooks.get(book);
+				
+			
+			if (bookObj.getAmountInInventory()>0) { //if the amount is >0
+				bookObj.decreaseAmountInInventory(bookObj);
+				return OrderResult.SUCCESSFULLY_TAKEN;
+		}
+		return OrderResult.NOT_IN_STOCK;
+		}
+		}
+		throw new IllegalArgumentException("book does not exist");
 	}
 	
 	
@@ -55,9 +81,17 @@ public class Inventory {
      * @return the price of the book if it is available, -1 otherwise.
      */
 	public int checkAvailabiltyAndGetPrice(String book) {
-		//TODO: Implement this
+		synchronized (inventoryBooks) {
+			if (inventoryBooks.containsKey(book)) {                  //check if contains the book
+				BookInventoryInfo bookObj = inventoryBooks.get(book);
+				
+				if (bookObj.getAmountInInventory()>0) {              //if the amount is >0
+					return bookObj.getPrice();
+				}
+			}
 		return -1;
-	}
+		}
+	}	
 	
 	/**
      * 
@@ -68,7 +102,28 @@ public class Inventory {
      * their respective available amount in the inventory. 
      * This method is called by the main method in order to generate the output.
      */
-	public void printInventoryToFile(String filename){
-		//TODO: Implement this
+	public void printInventoryToFile(String filename){         //this method is uncomplete, needs to figure out what is bookstore runner
+		//and how to iterate over an hashmap automatically;
+		HashMap<String, BookInventoryInfo> fileHash = new HashMap<>();
+		for (int i = 0; i < inventoryBooks.size(); i++) {
+			fileHash
+		}
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
