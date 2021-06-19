@@ -35,9 +35,20 @@ public class OrderReceipt {
 		this.issuedTick=issuedTick;
 		this.orderTick=orderTick;
 		this.proccessTick=proccessTick;
-
-
 	}
+	public OrderReceipt(String seller,int customerId,String bookTitle,int price,int issuedTick,int proccessTick,int orderTick){
+		idNum++;
+		this.orderId=idNum;
+		this.seller=seller;
+		this.bookTitle=bookTitle;
+		this.customerId=customerId;
+		this.price=price;
+		this.issuedTick=issuedTick;
+		this.proccessTick=proccessTick;
+		this.issuedTick=issuedTick;
+		this.orderTick=orderTick;
+	}
+
 	public String toString(){
 		String ret = "<OrderReceipt>: " + orderId;
 		ret += ", Seller: " + seller + ", Book title: " + bookTitle;

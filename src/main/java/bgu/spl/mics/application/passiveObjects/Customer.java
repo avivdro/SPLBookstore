@@ -28,6 +28,7 @@ public class Customer {
         this.distance = distance;
         this.availableCreditAmount = amount;
         this.creditNumber = creditCardNumber;
+        this.customerReceipt = new LinkedList<>();
     }
 
     public String toString(){

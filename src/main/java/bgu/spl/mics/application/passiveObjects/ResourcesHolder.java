@@ -29,7 +29,8 @@ public class ResourcesHolder {
 
 
     private ResourcesHolder() {
-
+        vehicleQueue = new ConcurrentLinkedQueue<>();
+        vehicleFutureToResolve = new ConcurrentLinkedQueue<>();
     }
 
 
@@ -77,7 +78,7 @@ public class ResourcesHolder {
 
     public void assignWaitersToVehicle() { //every time a vehicle is released
         synchronized (vehicleFutureToResolve) { //waiters for vehicle synchronize
-            if(vehicleFutureToResolve!=null) { // Isn't empty
+            if(!vehicleFutureToResolve.isEmpty()) { // Isn't empty
                 if(keyForResource.tryAcquire()) { // can acquire
                     DeliveryVehicle vehicle = vehicleQueue.poll(); //last released vehicle
                     if(vehicle!=null) {
@@ -88,13 +89,14 @@ public class ResourcesHolder {
         }
     }
 
+
     /**
      * Receives a collection of vehicles and stores them.
      * <p>
      * @param vehicles	Array of {@link DeliveryVehicle} instances to store.
      */
     public void load(DeliveryVehicle[] vehicles) {
-        //copy the array to the list(happends one time?
+        //copy the array to the list (happens one time?
         vehicleQueue.addAll(Arrays.asList(vehicles));
         keyForResource = new Semaphore(vehicles.length);
     }

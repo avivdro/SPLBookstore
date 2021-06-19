@@ -23,8 +23,8 @@ import java.util.HashMap;
  */
 public abstract class MicroService implements Runnable {
 
-    private HashMap <Class <? extends Message> , Callback> subscribeMap;
-    private MessageBusImpl msgBus = MessageBusImpl.getInstance();
+    private HashMap <Class <? extends Message> , Callback> tol;
+    private MessageBusImpl magicBus = MessageBusImpl.getInstance();
     private boolean terminated = false;
     private final String name;
 
@@ -34,6 +34,7 @@ public abstract class MicroService implements Runnable {
      */
     public MicroService(String name) {
         this.name = name;
+        tol=new HashMap<>();
     }
 
     /**
@@ -58,8 +59,8 @@ public abstract class MicroService implements Runnable {
      *                 queue.
      */
     protected final <T, E extends Event<T>> void subscribeEvent(Class<E> type, Callback<E> callback) {
-        subscribeMap.put(type, callback);
-        msgBus.subscribeEvent(type, this);
+        tol.put(type, callback);
+        magicBus.subscribeEvent(type, this);
     }
 
     /**
@@ -83,8 +84,8 @@ public abstract class MicroService implements Runnable {
      *                 queue.
      */
     protected final <B extends Broadcast> void subscribeBroadcast(Class<B> type, Callback<B> callback) {
-        subscribeMap.put(type, callback);
-        msgBus.subscribeBroadcast(type, this);
+        tol.put(type, callback);
+        magicBus.subscribeBroadcast(type, this);
     }
 
     /**
@@ -100,7 +101,7 @@ public abstract class MicroService implements Runnable {
      * 	       			null in case no micro-service has subscribed to {@code e.getClass()}.
      */
     protected final <T> Future<T> sendEvent(Event<T> e) {
-        return msgBus.sendEvent(e);
+        return magicBus.sendEvent(e);
     }
 
     /**
@@ -109,8 +110,9 @@ public abstract class MicroService implements Runnable {
      * <p>
      * @param b The broadcast message to send
      */
-    protected final void sendBroadcast(Broadcast b) {
-        msgBus.sendBroadcast(b);
+    protected final void sendBroadcast(Broadcast b)
+    {
+        magicBus.sendBroadcast(b);
     }
 
     /**
@@ -124,7 +126,7 @@ public abstract class MicroService implements Runnable {
      *               {@code e}.
      */
     protected final <T> void complete(Event<T> e, T result) {
-        msgBus.complete(e, result);
+        magicBus.complete(e, result);
     }
 
     /**
@@ -138,7 +140,7 @@ public abstract class MicroService implements Runnable {
      */
     protected final void terminate() {
         this.terminated = true;
-        msgBus.unregister(this);
+        magicBus.unregister(this);
     }
 
     /**
@@ -154,15 +156,14 @@ public abstract class MicroService implements Runnable {
      * otherwise you will end up in an infinite loop.
      */
     @Override
-    public final void run() { //loop that runs the micro service until its completed
-        // register to message bus
+    public final void run() {
+        // The microservice registers to the message bus.
+        magicBus.register(this);
         initialize();
-        //try{
         while (!terminated) {
-
-            try {
-                Message m = msgBus.awaitMessage(this);
-                Callback callbackFunction = subscribeMap.getOrDefault(m.getClass(), null);
+            try{
+                Message m = magicBus.awaitMessage(this);
+                Callback callbackFunction = tol.getOrDefault(m.getClass(), null);
                 if(callbackFunction == null){
                     System.out.println("no callback available for message : "+m.toString());
                 }
@@ -173,7 +174,6 @@ public abstract class MicroService implements Runnable {
             catch (InterruptedException e){
                 System.out.println("The thread was interrupted! ");
             }
-
         }
     }
 
