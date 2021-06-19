@@ -1,0 +1,108 @@
+package bgu.spl.mics.application.passiveObjects;
+
+import java.io.Serializable;
+
+
+
+
+/**
+ * Passive data-object representing a receipt that should 
+ * be sent to a customer after the completion of a BookOrderEvent.
+ * You must not alter any of the given public methods of this class.
+ * <p>
+ * You may add fields and methods to this class as you see fit (including public methods).
+ */
+public class OrderReceipt {
+	//fields
+	private int orderId; // the id of the order.
+	private String seller;// string - the name of the service which handled the order.
+	private int customerId;// id - the id of the customer the receipt is issued to.
+	private String bookTitle;// string – title of the book bought.
+	private int price;// – the price the customer paid for the book.
+	private int issuedTick;// int - tick in which this receipt was issued (upon completing the corresponding event).
+	private int orderTick;// int - tick in which the customer ordered the book.
+	private int proccessTick;// int – tick in which the selling service started processing the order.
+	private static int idNum=0;
+
+	//constructor
+	public OrderReceipt(int orderId,int customerId, int Price, int issuedTick,int orderTick, int proccessTick,String bookTitle,String seller) {
+		idNum++;
+		this.orderId=idNum;
+		this.seller=seller;
+		this.customerId=customerId;
+		this.bookTitle = bookTitle;
+		this.price=price;
+		this.issuedTick=issuedTick;
+		this.orderTick=orderTick;
+		this.proccessTick=proccessTick;
+
+
+	}
+	public String toString(){
+		String ret = "<OrderReceipt>: " + orderId;
+		ret += ", Seller: " + seller + ", Book title: " + bookTitle;
+		ret += "\n    Customer: " + customerId + ", Price: " + price;
+		ret += "\n    issuedTick: " + issuedTick + ", proccessesTick: " + proccessTick;
+		ret += ", orderTick: " + orderTick;
+		return ret;
+	}
+
+	/**
+	 * Retrieves the orderId of this receipt.
+	 */
+	public int getOrderId() {
+		return orderId;
+	}
+
+	/**
+	 * Retrieves the name of the selling service which handled the order.
+	 */
+	public String getSeller() {
+		return seller;
+	}
+
+	/**
+	 * Retrieves the ID of the customer to which this receipt is issued to.
+	 * <p>
+	 * @return the ID of the customer
+	 */
+	public int getCustomerId() {
+		return customerId;
+	}
+
+	/**
+	 * Retrieves the name of the book which was bought.
+	 */
+	public String getBookTitle() {
+		return bookTitle;
+	}
+
+	/**
+	 * Retrieves the price the customer paid for the book.
+	 */
+	public int getPrice() {
+		return price;
+	}
+
+	/**
+	 * Retrieves the tick in which this receipt was issued.
+	 */
+	public int getIssuedTick() {
+		return issuedTick;
+	}
+
+	/**
+	 * Retrieves the tick in which the customer sent the purchase request.
+	 */
+	public int getOrderTick() {
+		return orderTick;
+	}
+
+	/**
+	 * Retrieves the tick in which the treating selling service started
+	 * processing the order.
+	 */
+	public int getProcessTick() {
+		return proccessTick;
+	}
+}

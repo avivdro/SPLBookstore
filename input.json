@@ -1,0 +1,57 @@
+{
+  "initialInventory": [
+    {"bookTitle": "Harry Potter", "amount": 10, "price": 90},
+    {"bookTitle": "The Hunger Games", "amount": 90, "price": 102},
+    {"bookTitle": "The Hobbit", "amount": 1, "price": 3},
+    {"bookTitle": "Narnia", "amount": 1, "price": 3},
+    {"bookTitle": "To Kill a Mockingbird", "amount": 1, "price": 3}
+  ],
+  "initialResources":[
+    {"vehicles":[
+      {"license":123483, "speed": 2}
+    ]
+    }
+  ],
+  "services":{
+    "time": {
+      "speed": 1000,
+      "duration": 24
+    },
+    "selling": 6,
+    "inventoryService": 3,
+    "logistics": 4,
+    "resourcesService": 1,
+    "customers": [
+      {
+        "id": 987654321,
+        "name": "Ilan Shalom",
+        "address": "Chicago 933",
+        "distance":33,
+        "creditCard":{"number":67890,"amount":88},
+        "orderSchedule": [
+          {"bookTitle": "Harry Potter", "tick": 3},
+          {"bookTitle": "The Hunger Games", "tick": 3},
+          {"bookTitle": "The Hobbit", "tick": 23},
+          {"bookTitle": "Narnia", "tick": 4},
+          {"bookTitle": "To Kill a Mockingbird", "tick": 9}
+        ]
+      },
+      {
+        "id": 123456789,
+        "name": "John Brown",
+        "address": "Beer Sheva 777",
+        "distance":12,
+        "creditCard":{"number":453536,"amount":220},
+        "orderSchedule": [
+          {"bookTitle": "The Hunger Games", "tick": 12},
+          {"bookTitle": "The Hobbit", "tick": 23},
+          {"bookTitle": "Narnia", "tick": 6},
+          {"bookTitle": "To Kill a Mockingbird", "tick": 9}
+        ]
+      }
+    ]
+  }
+
+
+
+}
