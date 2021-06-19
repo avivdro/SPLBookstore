@@ -57,10 +57,10 @@ public class APIService extends MicroService {
         subscribeBroadcast(TickBroadcast.class, tickIncoming -> {  //subscribe a new broadcast
             this.time = tickIncoming.getCurrentTick();             //get the current tick from tickBroadcast(message)
             while (currentIndex <= orderSchedules.length - 1 && time == orderSchedules[currentIndex].getTick()) { //if there are orders left, and in the order list of specific client it has an order in this tick
-                Future<OrderReceipt> futuro = sendEvent(new BookOrderEvent(customer, time, orderSchedules[currentIndex].getBookTitle())); //make future order recipt and send event of a new book order
+                Future<OrderReceipt> futuro = sendEvent(new BookOrderEvent(orderSchedules[currentIndex].getBookTitle(), customer, time)); //make future order recipt and send event of a new book order
                 OrderReceipt futuroReciept = futuro.get();  //when future will resolse, use the reciept
                 if (!(futuroReciept instanceof NullReciept)) {  //if receipt isnt null
-                    sendEvent(new DeliveryEvent(customer.getAddress(), customer.getDistance())); //send delivery event
+                    sendEvent(new DeliveryEvent(futuroReciept, customer.getDistance(), customer.getAddress())); //send delivery event
                     customer.getCustomerReceiptList().add(futuro.get());  //add the receipt to the customer
                 }
                 currentIndex++; //one book is delivered

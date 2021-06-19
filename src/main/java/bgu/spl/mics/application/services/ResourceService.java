@@ -2,9 +2,10 @@ package bgu.spl.mics.application.services;
 
 import bgu.spl.mics.Future;
 import bgu.spl.mics.MicroService;
-import bgu.spl.mics.application.Messages.FindDriverEvent;
-import bgu.spl.mics.application.Messages.ReleaseVehicleEvent;
-import bgu.spl.mics.application.Messages.TerminateBroadcast;
+import bgu.spl.mics.application.Messages.*;
+import bgu.spl.mics.application.passiveObjects.DeliveryVehicle;
+import bgu.spl.mics.application.passiveObjects.Inventory;
+import bgu.spl.mics.application.passiveObjects.MoneyRegister;
 import bgu.spl.mics.application.passiveObjects.ResourcesHolder;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -19,6 +20,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * You can add private fields and public methods to this class.
  * You MAY change constructor signatures and even add new public constructors.
  */
+
 public class ResourceService extends MicroService {
     private ResourcesHolder rH;
     private static AtomicInteger instanceCounter = new AtomicInteger(0);
@@ -65,6 +67,4 @@ public class ResourceService extends MicroService {
             rH.releaseVehicle(event.getVehicle());
         });
     }
-
-
 }
