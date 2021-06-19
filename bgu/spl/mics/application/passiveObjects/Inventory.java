@@ -16,7 +16,7 @@ import java.util.Iterator;
 public class Inventory {
 
 	//fields
-	static Inventory Inventory = new Inventory();
+	static Inventory Inventory = new Inventory();      //not supposed to work
 	//widsh collection to choose for bookinfos?
 	private HashMap<String, BookInventoryInfo> inventoryBooks = new HashMap<>();
 	

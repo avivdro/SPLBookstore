@@ -1,6 +1,11 @@
 package bgu.spl.mics.application.passiveObjects;
 
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
+import bgu.spl.mics.application.BookStoreRunner;
 
 /**
  * Passive object representing the store finance management. 
@@ -13,29 +18,41 @@ package bgu.spl.mics.application.passiveObjects;
  */
 public class MoneyRegister {
 	
+	private AtomicInteger totalEarnings;
+	List<OrderReceipt> receiptList;
+	private static MoneyRegister singleInstance = null;
+
+	private MoneyRegister(){               //private constructor
+		totalEarnings=new AtomicInteger(0);
+		receiptList = new LinkedList<>();
+	}
+	
 	/**
      * Retrieves the single instance of this class.
      */
-	public static MoneyRegister getInstance() {
-		//TODO: Implement this
-		return null;
-	}
-	
+	public static MoneyRegister getInstance()
+    {
+        // To ensure only one instance is created
+        if (singleInstance == null)
+        {
+            singleInstance = new MoneyRegister();
+        }
+        return singleInstance;
+    }
 	/**
      * Saves an order receipt in the money register.
      * <p>   
      * @param r		The receipt to save in the money register.
      */
 	public void file (OrderReceipt r) {
-		//TODO: Implement this.
+		receiptList.add(r);
 	}
 	
 	/**
      * Retrieves the current total earnings of the store.  
      */
 	public int getTotalEarnings() {
-		//TODO: Implement this
-		return 0;
+		return totalEarnings.get();
 	}
 	
 	/**
@@ -44,7 +61,8 @@ public class MoneyRegister {
      * @param amount 	amount to charge
      */
 	public void chargeCreditCard(Customer c, int amount) {
-		// TODO Implement this
+		c.setAvailableCreditsAmount(amount);
+		totalEarnings.getAndAdd(amount);
 	}
 	
 	/**
@@ -53,6 +71,6 @@ public class MoneyRegister {
      * This method is called by the main method in order to generate the output.
      */
 	public void printOrderReceipts(String filename) {
-		//TODO: Implement this
+		BookStoreRunner.writeObjectToFileName(filename, receiptList);
 	}
 }

@@ -16,7 +16,7 @@ public class Customer {
 	private String address;
 	private int distance;
 	private List<OrderReceipt> customerReceipt;
-	private int availableCreditAmount;
+	private volatile  int availableCreditAmount; //volatile because it needs to update instantly
 	private int creditNumber;
 	
 	
@@ -74,6 +74,9 @@ public class Customer {
 	public int getAvailableCreditAmount() {
 		return availableCreditAmount;
 	}
+	 public void setAvailableCreditsAmount(int pricetoCharge) {
+	        this.availableCreditAmount = availableCreditAmount - pricetoCharge;
+	    }
 	
 	/**
      * Retrieves this customers credit card serial number.    
