@@ -1,21 +1,21 @@
 {
   "initialInventory": [
-    {"bookTitle": "Harry Potter", "amount": 10, "price": 90},
-    {"bookTitle": "The Hunger Games", "amount": 90, "price": 102},
-    {"bookTitle": "The Hobbit", "amount": 1, "price": 3},
-    {"bookTitle": "Narnia", "amount": 1, "price": 3},
-    {"bookTitle": "To Kill a Mockingbird", "amount": 1, "price": 3}
+    {"bookTitle": "Harry Potter 1", "amount": 10, "price": 94},
+    {"bookTitle": "Robin Hood", "amount": 90, "price": 92},
+    {"bookTitle": "The Hobbit", "amount": 1, "price": 5},
+    {"bookTitle": "The Giver", "amount": 2, "price": 2},
+    {"bookTitle": "CookBoook", "amount": 1, "price": 4}
   ],
   "initialResources":[
     {"vehicles":[
-      {"license":123483, "speed": 2}
+      {"license":12345, "speed": 3}
     ]
     }
   ],
   "services":{
     "time": {
-      "speed": 1000,
-      "duration": 24
+      "speed": 900,
+      "duration": 20
     },
     "selling": 6,
     "inventoryService": 3,
@@ -23,30 +23,30 @@
     "resourcesService": 1,
     "customers": [
       {
-        "id": 987654321,
-        "name": "Ilan Shalom",
-        "address": "Chicago 933",
+        "id": 111,
+        "name": "Yuval Leibo",
+        "address": "Reut 111",
         "distance":33,
-        "creditCard":{"number":67890,"amount":88},
+        "creditCard":{"number":606060,"amount":100},
         "orderSchedule": [
-          {"bookTitle": "Harry Potter", "tick": 3},
-          {"bookTitle": "The Hunger Games", "tick": 3},
-          {"bookTitle": "The Hobbit", "tick": 23},
-          {"bookTitle": "Narnia", "tick": 4},
-          {"bookTitle": "To Kill a Mockingbird", "tick": 9}
+          {"bookTitle": "Harry Potter 1", "tick": 5},
+          {"bookTitle": "Robin Hood", "tick": 3},
+          {"bookTitle": "The Hobbit", "tick": 21},
+          {"bookTitle": "The Giver", "tick": 4},
+          {"bookTitle": "Cookbook", "tick": 9}
         ]
       },
       {
-        "id": 123456789,
-        "name": "John Brown",
-        "address": "Beer Sheva 777",
-        "distance":12,
-        "creditCard":{"number":453536,"amount":220},
+        "id": 222,
+        "name": "Omri Queen",
+        "address": "Modiin 23",
+        "distance":10,
+        "creditCard":{"number":4580,"amount":200},
         "orderSchedule": [
-          {"bookTitle": "The Hunger Games", "tick": 12},
-          {"bookTitle": "The Hobbit", "tick": 23},
-          {"bookTitle": "Narnia", "tick": 6},
-          {"bookTitle": "To Kill a Mockingbird", "tick": 9}
+          {"bookTitle": "Robin Hood", "tick": 11},
+          {"bookTitle": "The Hobbit", "tick": 21},
+          {"bookTitle": "The Giver", "tick": 8},
+          {"bookTitle": "Cookbook", "tick": 9}
         ]
       }
     ]
